@@ -1,0 +1,15 @@
+language: julia
+os:
+  - linux
+notifications:
+  email: false
+julia:
+  - 0.6
+  - nightly
+matrix:
+  allow_failures:
+  - julia: nightly
+before_install:
+  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+script:
+  - julia -e 'Pkg.init(); Pkg.clone(pwd()); Pkg.test("Vega")'
